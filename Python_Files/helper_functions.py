@@ -37,7 +37,7 @@ def load_all_images(numInSeries,nSeries, image_size ):
   for j in range(0,nSeries):
     for i in range(1,numInSeries+1):
           fname = str(i) + '_' + str(j) + '.png'
-          path = '../DLHW5/data' + '/' + fname
+          path = '../data' + '/' + fname
           orig_img = read_tensor_from_image_file(path, image_size, image_size).reshape(1,512,512)
           img[counter] = orig_img.reshape(image_size,image_size)
           counter = counter+1
