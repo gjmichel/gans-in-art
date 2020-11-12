@@ -210,3 +210,77 @@ def evaluate(output, x):
         val_loss = tf.reduce_mean(l2_norm)
 
         return val_loss
+    
+    
+    
+    
+ def ff_autoencoder(data, model_path,input_size,output_size, n_code, encoder_neurons, decoder_neurons,training_epochs, batch_size, display_step): 
+
+  with strategy.scope():
+
+    with tf.Graph().as_default():
+
+        with tf.variable_scope("autoencoder_model"):
+
+            # the input variables are first define as placeholder (a variable/data which will be assigned later)
+            x = tf.placeholder("float", [None, 512*512])
+
+            phase_train = tf.placeholder(tf.bool)
+
+            # define the encoder/decoder model
+            code = encoder(x, int(input_size), int(n_code), phase_train, encoder_neurons)
+            output = decoder(code, int(output_size), int(n_code), phase_train, decoder_neurons)
+
+            # compute the loss
+            cost = loss(output, x)
+
+            # initialize the value of the global_step variable
+            # it is incremented by one each time the .minimize() is called, not trainable
+            global_step = tf.Variable(0, name='global_step', trainable=False)
+
+            # define training operation
+            train_op = training(cost, global_step)
+
+            # evaluate the accuracy of the network (done on a validation set)
+            eval_op = evaluate(output, x)
+
+            # save and restore variables to and from checkpoints.
+            saver = tf.train.Saver()
+
+            # defines a session
+            sess = tf.Session()
+
+            # initialization of the variables
+            init_op = tf.global_variables_initializer()
+            sess.run(init_op)
+
+
+
+            # Training cycle
+            for epoch in range(training_epochs):
+
+                avg_cost = 0.
+                total_batch = int(len(data)/batch_size)
+
+                # Loop over all batches
+                for i in range(total_batch):
+
+                    minibatch_x = next_batch(data,batch_size).reshape(-1,512*512)
+
+                    # Fit training using batch data
+                    _, new_cost = sess.run([train_op, cost], feed_dict={x: minibatch_x, phase_train: True})
+
+                    # Compute average loss
+                    avg_cost += new_cost/total_batch
+
+
+                if epoch % display_step == 0:
+
+                    print("Epoch:", '%04d' % (epoch+1),"cost =", "{:.9f}".format(avg_cost))
+                    save_path = saver.save(sess, model_path)
+                    print("Model saved in file: %s" % save_path)
+
+
+            results = sess.run([output], feed_dict={x: data.reshape(-1,512*512), phase_train: False})
+            print("Optimization Done")
+            return results[0]
