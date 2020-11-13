@@ -12,7 +12,7 @@ The dataset provided by the artist was composed of 222 very high quality black a
 In a first step, I tried to train a GAN on this dataset, but the results obtained were not conclusive, even after optimizing the hyper parameters. 
 The next attempt was to use data augmentation techniques, but it did not produce images that could have been made by the artist. 
 
-# Final approach
+## Final approach
 The final approach consisted of two major steps: 
 - using various autoencoders to increase the size of the starting dataset (convolutional and feedforward autoencoders)
 - to train a gan on this dataset of size 666 
