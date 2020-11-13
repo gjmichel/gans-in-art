@@ -25,4 +25,4 @@ The final approach consisted of two major steps:
 
 ![Generated Images](https://github.com/gjmichel/gans-in-art/blob/main/results/images_being_generated.jpg)
 
-![Generated Images](https://github.com/gjmichel/gans-in-art/blob/main/results/generated_images.jpg)
+![Generated Images](https://github.com/gjmichel/gans-in-art/blob/main/results/gan_generated_img.jpg)
