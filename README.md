@@ -14,9 +14,9 @@ The next attempt was to use data augmentation techniques, but it did not produce
 
 ## Final approach
 The final approach consisted of two major steps: 
-* 1. Using various autoencoders to increase the size of the starting dataset (convolutional and feedforward autoencoders). 
+* Using various autoencoders to increase the size of the starting dataset (convolutional and feedforward autoencoders). 
 By generating 222 samples using each of the autoencoders, I managed to get a dataset of size 666 to train the GAN.
-* 2. Train a gan on this dataset of size 666, and save figures each 500 iterations. 
+* Train a gan on this dataset of size 666, and save figures each 500 iterations. 
 Through the optimization process, there are some states where the generator provides acceptable images, but then the discriminator becomes more efficient and generated images become blurry again; that's why images are saved periodically.
 
 ## Results
