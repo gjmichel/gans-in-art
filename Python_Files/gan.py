@@ -124,13 +124,13 @@ def train_GAN(data, size_g_w1, size_g_b1, size_g_w2, size_g_b2, learning_rate,ba
                     print('G_loss: {}'.format(generator_loss))
                     print()
                 if iter%500 == 0 :
+                    result = sess.run(G_sample, feed_dict={Z: sample_z(3*3, z_dim)})
+                    result_ready = np.array(result).reshape(-1,512,512)
 
-                    result = sess.run([output], feed_dict={x: next_batch(data,data.shape[0])})
-                    r_ = result[0]
-                    # generate 20 images 
+                    # save 20 images 
                     for p in range(20): 
                         fname = 'GAN'+ '_' + str(p) + '_' + '.png'
                         path = '/ResultGAN' + '/' + fname
-                        imageio.imwrite(f'{fname}',r_[p])
+                        imageio.imwrite(f'{fname}',result_ready[p])
 
 
