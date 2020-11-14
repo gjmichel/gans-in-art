@@ -127,7 +127,8 @@ def train_GAN(data, size_g_w1, size_g_b1, size_g_w2, size_g_b2, learning_rate,ba
 
                     result = sess.run([output], feed_dict={x: next_batch(data,data.shape[0])})
                     r_ = result[0]
-                    for p in range(222): 
+                    # generate 20 images 
+                    for p in range(20): 
                         fname = 'GAN'+ '_' + str(p) + '_' + '.png'
                         path = '/ResultGAN' + '/' + fname
                         imageio.imwrite(f'{fname}',r_[p])
