@@ -24,13 +24,22 @@ Through the optimization process, there are some states where the generator prov
 ![Original Images](https://github.com/gjmichel/gans-in-art/blob/main/results/original_images.jpg)
 
 <br>
+<br>
+<br>
+
 
 ![Reconstructed Images](https://github.com/gjmichel/gans-in-art/blob/main/results/reconstructed_images_feed_forward.jpg)
 
 <br>
+<br>
+<br>
+
 
 ![Generated Images](https://github.com/gjmichel/gans-in-art/blob/main/results/images_being_generated.jpg)
 
 <br>
+<br>
+<br>
+
 
 ![Generated Images](https://github.com/gjmichel/gans-in-art/blob/main/results/gan_generated_img.jpg)
