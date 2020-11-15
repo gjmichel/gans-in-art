@@ -106,10 +106,11 @@ def train_GAN(data, size_g_w1, size_g_b1, size_g_w2, size_g_b2, learning_rate,ba
                       result = sess.run(G_sample, feed_dict={Z: sample_z(3*3, z_dim)})
                       result_ready = np.array(result).reshape(-1,512,512)
                     
-                      for p in range(222):
-                         fname = str(iter) + '_' + str(p) + '_' + '.png'
-                         path = '/ResultGAN' + '/' + fname
-                         imageio.imwrite(f'{fname}',result_ready[p])
+                      # save 20 images 
+                      for p in range(20): 
+                        fname = 'GAN'+ '_' + str(p) + '_' + '.png'
+                        path = '/ResultGAN' + '/' + fname
+                        imageio.imwrite(f'{fname}',result_ready[p])
 
 
                 batch_xs = next_batch(data,batch_size).reshape(-1,512*512)
@@ -117,20 +118,14 @@ def train_GAN(data, size_g_w1, size_g_b1, size_g_w2, size_g_b2, learning_rate,ba
                 discriminator_loss = sess.run([D_solver, D_loss], feed_dict={X: batch_xs, Z: sample_z(batch_size, z_dim)})
                 generator_loss     = sess.run([G_solver, G_loss], feed_dict={Z: sample_z(batch_size, z_dim)})
 
-                if iter % 50 == 0:
+                if iter % 10000 == 0:
                     
                     print('iteration: {}'.format(iter))
-                    print('D_loss: {}'.format(discriminator_loss))
-                    print('G_loss: {}'.format(generator_loss))
+                    print('D_loss: {}'.format(discriminator_loss[1]))
+                    print('G_loss: {}'.format(generator_loss[1]))
                     print()
-                if iter%500 == 0 :
-                    result = sess.run(G_sample, feed_dict={Z: sample_z(3*3, z_dim)})
-                    result_ready = np.array(result).reshape(-1,512,512)
+               
 
-                    # save 20 images 
-                    for p in range(20): 
-                        fname = 'GAN'+ '_' + str(p) + '_' + '.png'
-                        path = '/ResultGAN' + '/' + fname
-                        imageio.imwrite(f'{fname}',result_ready[p])
+
 
 
